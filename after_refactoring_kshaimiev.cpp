@@ -1,17 +1,17 @@
 ﻿#include <cmath>
 #include <iostream>
 
-int main()
-{
-    double sequence[10];
-    for (int i = 0; i < 10; i++)
+int main(){
+    const int sequence_size = 10;   
+    double sequence[sequence_size];
+    for (int i = 0; i < sequence_size; i++)
     {
         std::cout << "Введите элемент под номером: " << i + 1 << std::endl;
         std::cin >> sequence[i];
     }
 
     bool is_increasing = true;
-    for (int i = 1; i < 10; i++)
+    for (int i = 1; i < sequence_size; i++)
     {
         if (sequence[i]<sequence[i-1]){
             is_increasing = false;
