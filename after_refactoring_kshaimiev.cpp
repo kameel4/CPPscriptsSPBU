@@ -3,7 +3,7 @@
 
 int main(){
     const int sequence_size = 10;   
-    double sequence[sequence_size];
+    int sequence[sequence_size];
     for (int i = 0; i < sequence_size; i++)
     {
         std::cout << "Введите элемент под номером: " << i + 1 << std::endl;
