@@ -3,7 +3,7 @@
 
 int main(){
     const int sequence_size = 10;   
-    int sequence[sequence_size];
+    double sequence[sequence_size];
     for (int i = 0; i < sequence_size; i++)
     {
         std::cout << "Введите элемент под номером: " << i + 1 << std::endl;
@@ -13,7 +13,7 @@ int main(){
     bool is_increasing = true;
     for (int i = 1; i < sequence_size; i++)
     {
-        if (sequence[i]<sequence[i-1]){
+        if (sequence[i]<sequence[i-1] && fabs(sequence[i] - sequence[i-1])>0.001) {
             is_increasing = false;
             break;
         }
