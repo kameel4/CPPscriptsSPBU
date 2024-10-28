@@ -63,7 +63,7 @@ void merge_sort(vector<int>& A, int p, int r, int S, int& pairs){
 }
 
 int main(){
-    int S = 17, pairs = 0;
+    int S = 15, pairs = 0;
     vector<int> vec = {1, 40, 3, 2, 7, 9, 10, 20, 11, 12, 6, 8};
     merge_sort(vec, 0, vec.size()-1, S, pairs);
     for (int elem: vec){
