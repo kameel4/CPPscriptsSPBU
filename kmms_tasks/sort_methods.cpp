@@ -1,11 +1,11 @@
 #include "sort_methods.hpp"
 
 
-void sortings::mergeSort(std::vector<int>& A, int p, int r){
+void sortings::merge_sort(std::vector<int>& A, int p, int r){
     if (p<r){
         int q = (p + r) / 2;
-        mergeSort(A, p, q);
-        mergeSort(A, q+1, r);
+        merge_sort(A, p, q);
+        merge_sort(A, q+1, r);
         merge(A, p, q, r);
     }
 }
@@ -33,7 +33,7 @@ void sortings::merge(std::vector<int>& A, int p, int q, int r){
     }
 }
 
-void sortings::insertionSort(std::vector<int> &array_to_sort, int begin, int end){
+void sortings::insertion_sort(std::vector<int> &array_to_sort, int begin, int end){
     for (int i = begin+1; i <= end; i++){
         int j = i;
         int temp = array_to_sort[i];
@@ -53,6 +53,18 @@ void sortings::merge_sort_insertionMOD(std::vector<int>& A, int p, int r, int m)
         merge(A, p, q, r);
     }else{
         // Если рекурсия дошла до подмассива длины <= m, то сортируем его по вставке
-        insertionSort(A, p, r);
+        insertion_sort(A, p, r);
+    }
+}
+
+void sortings::bubble_sort(int* const arr, const int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int x = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = x;
+            }
+        }
     }
 }
