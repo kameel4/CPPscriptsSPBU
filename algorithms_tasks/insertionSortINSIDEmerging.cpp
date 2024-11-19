@@ -13,9 +13,12 @@ void Insert_sort(std::vector<int> &array_to_sort, int begin, int end);
 void merge(vector<int>& A, int p, int q, int r);
 void merge_sort(vector<int>& A, int p, int r, int m);
 
+void check_sort();
+
 int main(){
     double min = 100.0;
     int last_m = 0;
+    check_sort();
     for (int n = 1e3; n<10e7; n*=10){    
         vector<int> vector_to_sort_10_n = random_vector(n);       
         
@@ -47,6 +50,8 @@ vector <int> random_vector(int N){
     return listick;
  }
 
+
+
  double compare_time(vector<int> unsorted,int m){
     //Замер времени модифицированной сортировки
     vector<int> rVector1 = unsorted;
@@ -58,10 +63,12 @@ vector <int> random_vector(int N){
     auto end = steady_clock :: now ();
 
     duration <double > elapsed_seconds = end - start ;
-    cout << " m = "<<m<<"\n";
-    cout << " elapsed time for insertion-modified sort with "<< N <<" elements: "<< elapsed_seconds.count () << "s\n\n";
+    // cout << " m = "<<m<<"\n";
+    // cout << " elapsed time for insertion-modified sort with "<< N <<" elements: "<< elapsed_seconds.count () << "s\n\n";
     return elapsed_seconds.count();
  }
+
+
 
 void merge(vector<int>& A, int p, int q, int r){
     int n1 = q - p +1;
@@ -94,6 +101,8 @@ void merge(vector<int>& A, int p, int q, int r){
         }
     }
 
+
+
 void merge_sort(vector<int>& A, int p, int r, int m){
     if (p<r && r-p > m){
         int q = (p + r) / 2;
@@ -104,4 +113,15 @@ void merge_sort(vector<int>& A, int p, int r, int m){
         // Если рекурсия дошла до подмассива длины <= m, то сортируем его по вставке
         Insert_sort(A, p, r);
     }
+}
+
+void check_sort(){
+    vector<int> v = random_vector(10000);
+    vector<int> v1 = v;
+    merge_sort(v1, 0, v1.size()-1, 128);
+    sort(v.begin(), v.end());
+    if (v == v1)
+        {cout<<"sort is ok\n";}
+    else 
+        {cout<<"sort is not ok\n";};
 }

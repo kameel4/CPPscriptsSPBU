@@ -9,6 +9,48 @@
 
 using namespace std;
 
+void merge_sort(vector<int>& A, int p, int r, int S, int& pairs);
+void merge(vector<int>& A, int p, int q, int r, int S, int& pairs);
+
+vector<int> generate_vector(int N, int min, int max);
+
+
+
+int main(){
+    int S = 7777, pairs = 0;
+    vector<int> vec = generate_vector(10000, -20000, 20000);
+    for (int i = 0; i<vec.size()-1; i++){
+        for(int j = i+1; j<vec.size(); j++){
+            if (vec[i] + vec[j] == S){
+                // cout<<vec[i]<<"   "<<vec[j]<<'\n';
+                pairs++;
+            }
+        }
+    }
+    cout<<"dumb pairs  "<<pairs<<"\n\n";
+    pairs = 0;
+    merge_sort(vec, 0, vec.size()-1, S, pairs);
+    // for (int elem: vec){
+    //     cout<<elem<<" ";
+    // }
+    cout<<"Количество подходящих пар: "<<pairs<<endl;
+
+    for (int elem: generate_vector(10, -5, 0)){
+        cout<<elem<<' ';
+    }
+}
+
+
+
+void merge_sort(vector<int>& A, int p, int r, int S, int& pairs){
+    if (p<r){
+        int q = (p + r) / 2;
+        merge_sort(A, p, q, S, pairs);
+        merge_sort(A, q+1, r, S, pairs);
+        merge(A, p, q, r, S, pairs);
+    }
+}
+
 void merge(vector<int>& A, int p, int q, int r, int S, int& pairs){
     int n1 = q - p +1;
     int n2 = r - q;
@@ -43,7 +85,7 @@ void merge(vector<int>& A, int p, int q, int r, int S, int& pairs){
             j--;
         }
     }
-    // merging the vectors
+    // слияние
     i =0; j=0;
     for (int k = p; k<r+1; k++){
         if (L[i]< R[j]){
@@ -57,7 +99,7 @@ void merge(vector<int>& A, int p, int q, int r, int S, int& pairs){
 
 vector<int> generate_vector(int N, int min, int max){
     vector<int> result;
-    if (N == 0 || min >= max) return result;
+    if (N == 0 || min >= max || max-min < N) return result;
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<int> dis(min, max);
@@ -70,32 +112,3 @@ vector<int> generate_vector(int N, int min, int max){
     return result;
 }
 
-void merge_sort(vector<int>& A, int p, int r, int S, int& pairs){
-    if (p<r){
-        int q = (p + r) / 2;
-        merge_sort(A, p, q, S, pairs);
-        merge_sort(A, q+1, r, S, pairs);
-        merge(A, p, q, r, S, pairs);
-    }
-}
-
-
-int main(){
-    int S = 7777, pairs = 0;
-    vector<int> vec = generate_vector(10000, -20000, 20000);
-    for (int i = 0; i<vec.size()-1; i++){
-        for(int j = i+1; j<vec.size(); j++){
-            if (vec[i] + vec[j] == S){
-                // cout<<vec[i]<<"   "<<vec[j]<<'\n';
-                pairs++;
-            }
-        }
-    }
-    cout<<"dumb pairs  "<<pairs<<"\n\n";
-    pairs = 0;
-    merge_sort(vec, 0, vec.size()-1, S, pairs);
-    // for (int elem: vec){
-    //     cout<<elem<<" ";
-    // }
-    cout<<"\n\nКоличество подходящих пар: "<<pairs;
-}
