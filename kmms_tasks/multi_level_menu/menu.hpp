@@ -5,24 +5,13 @@
 #include <vector>
 #include <iostream>
 
-namespace menu_node_actions{
+namespace menu{
     struct menu_node{
+        std::string name;
+        std::string level_name;
         menu_node* parent;
         std::vector<menu_node*> children;
-        int answer;
-        int (*action)();
+        menu_node* (*action)(menu_node* node);
     };
-
-    int get_answer();
-
-    int main_menu_action();
-    int clothes_action();
-    int shoes_action();
-    int jackets_action();
-    int pants_action();
-    int sneakers_action();
-    int boots_action();
-
 }
-
 #endif

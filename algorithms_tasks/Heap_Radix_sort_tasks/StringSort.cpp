@@ -19,8 +19,11 @@ void msdSort(vector<string>& a);
 
 
 int main(){
+
+    const int max_length = 3160;
+
     check_sort();   
-    for(int n = 1000; n<int(pow(10, 6)); n*=10){  
+    for(int n = 500; n<max_length; n+=100){  
         vector<string> arr = random_vector(n);
         compare_time(arr);
     }
@@ -55,18 +58,47 @@ void msdSort(vector<string>& a) {
 
 string random_string(int length){
     string str = "abcdefghijklmnopqrstuvwxyz";
+    string res = "";
     random_device rd;
     mt19937 gen(rd());
-    shuffle(str.begin(), str.end(), gen);
-    return string(str.begin(), str.begin() + length);
+    
+    // 
+    for (int i = 0; i<length; i++){
+        shuffle(str.begin(), str.end(), gen);
+        res+=str[0];}
+    return res;
+
+
 }
 
 vector<string> random_vector(int N){
     vector<string> listick(N);
     mt19937 mt(time(nullptr));
+    int symb_summ = 0;
+    
+    int max_symbols_per_string = pow(10, 7) / pow(N, 2);
+    
+
+
+    // filling first time (no more than a half of space can be empty)
     for (int i = 0; i < N; i++){
-        listick[i] = random_string(mt()%20+1);
+        int string_len = mt()%max_symbols_per_string+1;
+        listick[i] = random_string(string_len);
+        symb_summ+=string_len;
     }
+
+
+    // filling one more time to make n* symbols_summ almost 10^7 but no more
+    int empty_for_each_string = (pow(10, 7) - N*symb_summ) / pow(N, 2);
+    for (int i = 0; i< N; i++){
+        listick[i]+= random_string(empty_for_each_string);
+        symb_summ += empty_for_each_string;
+    }
+
+
+
+    cout<<"Max symbols per string: "<< max_symbols_per_string<<endl;
+    cout<<"Summ of symbols: "<<symb_summ<< ";   n * summ of symb = "<<N*symb_summ<<endl;
 
     return listick;
 }
@@ -77,7 +109,7 @@ vector<string> random_vector(int N){
     msdSort(v);
     sort(v1.begin(), v1.end());
     if (v == v1)
-        {cout<<"sort is ok  ˙ᵕ˙\n";}
+        {cout<<"sort is ok  ˙ᵕ˙\n\n";}
     else 
         {cout<<"sort is not ok   • ᴖ • \n";};
 }
@@ -86,7 +118,7 @@ void compare_time(vector<string> unsorted){
    //Замер времени модифицированной сортировки
    vector<string> rVector1 = unsorted;
    vector<string> rVector2 = unsorted;
-   int N = log10(unsorted.size());
+   int N = unsorted.size();
 
    // rVector1.reserve(rVector1.size()*2);
 
@@ -102,8 +134,8 @@ void compare_time(vector<string> unsorted){
    auto end2 = steady_clock :: now ();
    duration <double> elapsed_seconds2 = end2 - start2;
 
-   cout<<"Elapsed time for MSD radix Sort with 10e"<<N<<" elements: "<<elapsed_seconds1.count()<<endl;
-   cout<<"Elapsed time for standart Sort with 10e"<<N<<" elements: "<<elapsed_seconds2.count()<<endl<<endl;
+   cout<<"Elapsed time for MSD radix Sort with "<<N<<" elements: "<<elapsed_seconds1.count()<<endl;
+   cout<<"Elapsed time for standart Sort with "<<N<<" elements: "<<elapsed_seconds2.count()<<endl<<endl;
 }
 
 int longest(const vector<string>& strings) {
