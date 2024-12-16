@@ -10,6 +10,7 @@ int main(){
     }
 
     bool is_increasing = true;
+    
     for (int i = 1; i < sequence_size; i++)
     {
         if (sequence[i]<sequence[i-1]) {

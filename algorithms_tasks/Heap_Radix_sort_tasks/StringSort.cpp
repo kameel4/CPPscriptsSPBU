@@ -27,6 +27,7 @@ int main(){
         vector<string> arr = random_vector(n);
         compare_time(arr);
     }
+    
 }
 
 
@@ -76,7 +77,7 @@ vector<string> random_vector(int N){
     mt19937 mt(time(nullptr));
     int symb_summ = 0;
     
-    int max_symbols_per_string = pow(10, 7) / pow(N, 2);
+    int max_symbols_per_string = (int)(pow(10, 7) / pow(N, 2));
     
 
 
@@ -89,11 +90,13 @@ vector<string> random_vector(int N){
 
 
     // filling one more time to make n* symbols_summ almost 10^7 but no more
-    int empty_for_each_string = (pow(10, 7) - N*symb_summ) / pow(N, 2);
-    for (int i = 0; i< N; i++){
-        listick[i]+= random_string(empty_for_each_string);
-        symb_summ += empty_for_each_string;
-    }
+
+    
+    // int empty_for_each_string = (pow(10, 7) - N*symb_summ) / pow(N, 2);
+    // for (int i = 0; i< N; i++){
+    //     listick[i]+= random_string(empty_for_each_string);
+    //     symb_summ += empty_for_each_string;
+    // }
 
 
 
@@ -104,7 +107,7 @@ vector<string> random_vector(int N){
 }
 
  void check_sort(){
-    vector<string> v = random_vector(100);
+    vector<string> v = random_vector(1000);
     vector<string> v1 = v;
     msdSort(v);
     sort(v1.begin(), v1.end());

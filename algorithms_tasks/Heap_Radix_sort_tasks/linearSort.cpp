@@ -22,7 +22,7 @@ int main()
 {   
     check_sort();
 
-    for(int  n = 1000; n<int(pow(10, 7)); n*=10){  
+    for(int  n = 1000; n<int(pow(10, 8)); n*=10){  
     vector<long long> arr = random_vector(n);
     compare_time(arr);
     }

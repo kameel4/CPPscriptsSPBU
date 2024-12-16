@@ -1,0 +1,31 @@
+#include <map>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+int main(){
+    string s = "MCMXCIV";
+    map<string, int> digits{
+        pair<string, int>{"I", 1}, pair<string, int>{"IV", 4}, pair<string, int>{"V", 5},
+        pair<string, int>{"IX", 9}, pair<string, int>{"X", 10}, pair<string, int>{"XL", 40},
+        pair<string, int>{"L", 50}, pair<string, int>{"XC", 90}, pair<string, int>{"C", 100},
+        pair<string, int>{"CD", 400}, pair<string, int>{"D", 500}, pair<string, int>{"CM", 900},
+        pair<string, int>{"M", 1000},   
+    };
+    int summ = 0;
+    while (s.size()>1){
+            string slice = s.substr(0, 2);
+            if (digits.contains(slice)){
+                summ += digits[slice];
+                s.erase(0, 2);
+            }else{
+                summ += digits[s.substr(0, 1)];
+                s.erase(0, 1);
+            }
+        }
+    if (s.size()==1){
+        summ += digits[s.substr(0, 1)];
+    }
+    cout<<summ<<endl;
+}
